@@ -12,7 +12,7 @@ public class Console : MonoBehaviour
     public TMP_Text consoleText;
 
     public TMP_InputField field;
-
+    
     public string SendCommand()
     {
         field.text = field.text.ToLower();
@@ -52,6 +52,7 @@ public abstract class Plant
     protected static string mainColor;
     private bool hasFlowers;
     public Plant(bool hasFlowerss)
+    private int GGWP = 1;
     {
         this.hasFlowers = hasFlowerss;
     }
@@ -63,6 +64,10 @@ public abstract class Plant
     public string getColor()
     {
         return mainColor;
+    }
+    public int getGGWP()
+    {
+        return GGWP;
     }
 }
 public class Rose : Plant
