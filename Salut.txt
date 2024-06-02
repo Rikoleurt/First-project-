@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.InputManagerEntry;
+
+public class Console : MonoBehaviour
+{
+    const int MAX_CARACTER_CONSOLE = 37;
+    public TMP_Text consoleText;
+
+    public TMP_InputField field;
+
+    public string SendCommand()
+    {
+        field.text = field.text.ToLower();
+        if (field.text.Length > MAX_CARACTER_CONSOLE)
+        {
+            for (int i = Mathf.FloorToInt(field.text.Length / MAX_CARACTER_CONSOLE); i > 0; i--)
+            {
+                UpdateConsoleText();
+                Debug.Log(Mathf.FloorToInt(field.text.Length / MAX_CARACTER_CONSOLE));
+                field.text = field.text.Insert(i * MAX_CARACTER_CONSOLE, "\n");
+            }
+        }
+        UpdateConsoleText();
+        consoleText.text += "\n" + field.text;
+        return field.text;
+    }
+    public void UpdateConsoleText()
+    {
+        int place = consoleText.text.IndexOf("\n");
+        if (place == -1) return;
+        consoleText.text = consoleText.text.Substring(place + 2, consoleText.text.Length - place - 2);
+
+    }
+    public void Clearfield()
+    {
+        field.text = string.Empty;
+    }
+    public void OnEnter()
+    {
+        SendCommand();
+        Clearfield();
+    }
+
+}
+public abstract class Plant
+{
+    protected static string mainColor;
+    private bool hasFlowers;
+    public Plant(bool hasFlowerss)
+    {
+        this.hasFlowers = hasFlowerss;
+    }
+    public abstract string getType();
+    public bool getFlowers()
+    {
+        return hasFlowers;
+    }
+    public string getColor()
+    {
+        return mainColor;
+    }
+}
+public class Rose : Plant
+    {
+        public Rose() : base (false)
+        {
+            mainColor = "Red";
+        }
+
+    public override string getType()
+    {
+        throw new NotImplementedException();
+    }
+}
+public class Salad : Plant
+{
+    public Salad (): base(false)
+    {
+            mainColor = " Green ";
+    }
+
+    public override string getType()
+    {
+        throw new NotImplementedException();
+    }
+}
