@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.InputManagerEntry;
-
 public class Console : MonoBehaviour
 {
     const int MAX_CARACTER_CONSOLE = 37;
@@ -90,3 +89,4 @@ public class Salad : Plant
         throw new NotImplementedException();
     }
 }
+
